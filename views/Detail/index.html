@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1><?=$data["book"]["title"]?></h1>
+    <h2><?=$data["book"]["author"]?></h2>
+
+    <ul>
+        <?php foreach($data["chapters"] as $chapter) {?>
+            <li>
+                <a href="/detail/read/?id=<?=$data['book']['id']?>?chapter=<?=$chapter['id']?>">
+                    <?=$chapter['name']?>
+                </a>
+            </li>
+        <?php } ?>
+    </ul>
+
+    <hr>
+    <form method="post">
+        <?=$data["lang"]["choose_lang"]?>
+        <select name="lang">
+            <?php foreach($data["languages"] as $key => $language) {  ?>
+            <option value="<?=$key?>" <?php if($language["active"]){ ?>selected<?php } ?>>
+            <?=$language["value"]?>
+            </option>
+            <?php } ?>
+        </select>
+
+        <input type="hidden" name="action" value="change_language">
+
+        <button><?=$data["lang"]["submit"]?></button>
+    </form>
+</body>
+</html>

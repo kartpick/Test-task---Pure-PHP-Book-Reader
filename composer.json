@@ -1,0 +1,20 @@
+{
+    "name": "kartpick/test-book-reader",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Artem Egorov",
+            "email": "Kartpick@gmail.com"
+        }
+    ],
+	"autoload": {
+    	"psr-4": {
+          "System\\": "system/",
+          "Models\\": "models/",
+          "Controllers\\": "controllers/",
+          "Config\\": "config/"
+        },
+    	"files": []
+  },
+    "require": {}
+}
