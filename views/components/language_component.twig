@@ -1,0 +1,17 @@
+<hr>
+<form method="post">
+    <label for="lang">
+        {{ lang.choose_lang }}
+    </label>
+    <select name="lang" id="lang">
+        {% for key, language in languages %}
+            <option value="{{ key }}" {{ language.active ? 'selected' : '' }}>
+                {{ language.value }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <input type="hidden" name="action" value="change_language">
+
+    <button>{{ lang.submit }}</button>
+</form>

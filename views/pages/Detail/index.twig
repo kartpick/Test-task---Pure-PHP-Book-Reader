@@ -1,0 +1,22 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}
+    {{ book.title }} - {{ book.author }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ book.title }}</h1>
+    <h2>{{ book.author }}</h2>
+
+    <ul>
+        {% for chapter in chapters %}
+            <li>
+                <a href="/detail/read/?id={{ book.id }}&chapter={{ chapter.id }}">
+                    {{ chapter.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {{ parent() }}
+{% endblock %}

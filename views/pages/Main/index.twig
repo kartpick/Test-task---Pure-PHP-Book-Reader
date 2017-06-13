@@ -1,0 +1,21 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}
+    {{ lang.main_title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ lang.main_title }}</h1>
+
+    <ul>
+        {% for book in books %}
+            <li>
+                <a href="/detail/index/?id={{ book.id }}">
+                    {{ book.title }} - {{ book.author }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {{ parent() }}
+{% endblock %}
