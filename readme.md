@@ -34,31 +34,30 @@ This is a test task to show my qualifying skills as backend developer.<br/>
 
 ## Entities
 
-* Books
+* Book
 * Chapter
-* Pages
+* Page
 
 ### books
 
-    * id INT(10) UNSIGNED PRIMARY (auto increment)
-    * title VARCHAR(255) UNIQUE
+    * id INT(11) PRIMARY (auto increment)
+    * title VARCHAR(255)
     * author VARCHAR(255)
     * language VARCHAR(2)
 
-### chapter
+### chapters
 
-    * id INT(10) UNSIGNED PRIMARY (auto increment)
-    * name VARCHAR(255)
-    * order_index INT(10) never-used
-    * book INT(10) UNSIGNED fk -> books(id)
+    * id INT(11) PRIMARY (auto increment)
+    * title VARCHAR(255)
+    * book_id INT(11) fk -> books(id)
 
 ### pages
 
-    * id INT(10) UNSIGNED PRIMARY (auto increment)
-    * chapter INT(10) UNSIGNED fk -> chapter(id)
-    * prev_page INT(10) UNSIGNED fk -> pages(id)
-    * next_page INT(10) UNSIGNED fk -> pages(id)
-    * data TEXT
-    * number INT(10) UNSIGNED
+    * id INT(11) PRIMARY (auto increment)
+    * chapter_id INT(11) fk -> chapter(id)
+    * previous_id INT(11) fk -> pages(id)
+    * next_id INT(11) fk -> pages(id)
+    * data LONGTEXT
+    * number INT(11)
 
 
