@@ -24,10 +24,11 @@ This is a test task to show my qualifying skills as backend developer.<br/>
 
 ## System\ namespace
 * `./system/kernel.php` - MVC kernel. Uses to parse routes, search controllers.
-* `./system/db.php` - PDO decorator, uses Singleton patern.
+* `./system/db.php` - Doctrine bootstrap, uses Singleton patern.
 * `./system/controller.php` - root controller class. Handles actions.
 * `./system/view.php` - root view class. Uses to render html views with context by some `method`.
-* `./system/model.php` - root model class. Simple query decorator. One model for one table entity.
+
+> In previous version Model root was removed, because of Doctrine ORM. Controllers now have `EntityManager` to work with db (find models, CRUD by repositories, live updates and etc.). To know more check [Doctrine documentation](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/index.html).
 
 # Database scheme
 
