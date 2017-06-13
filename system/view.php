@@ -12,7 +12,6 @@ class View
   }
 
   function generate($method, $data) {
-    print_r($data);
     include self::$VIEWS_PATH.$this->className."/".$method.".html";
   }
 

@@ -2,9 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title><?=$data["book"]["title"]?> - <?=$data["book"]["author"]?></title>
 </head>
 <body>
+    <h1><?=$data["book"]["title"]?></h1>
+    <h2><?=$data["book"]["author"]?></h2>
+    <h3><?=$data["chapter"]["name"]?></h3>
+
+    <div class="page-content" style="border: 1px solid black">
+        <?=$data["page"]["data"]?>
+    </div>
+
+    <div class="navigation">
+        <?php if ($data["prev_page"]) { ?>
+            <a href="/detail/read/?id=<?=$data['book']['id']?>&chapter=<?=$data['prev_page']['chapter']?>&page_number=<?=$data['prev_page']['number']?>" class="prev">
+                <?=$data["lang"]["prev"]?>
+            </a>
+        <?php } ?>
+
+        <?php if ($data["next_page"]) { ?>
+            <a href="/detail/read/?id=<?=$data['book']['id']?>&chapter=<?=$data['next_page']['chapter']?>&page_number=<?=$data['next_page']['number']?>" class="next">
+                <?=$data["lang"]["next"]?>
+            </a>
+        <?php } ?>
+    </div>
+
+    <hr>
+    <form method="post">
+        <?=$data["lang"]["choose_lang"]?>
+        <select name="lang">
+            <?php foreach($data["languages"] as $key => $language) {  ?>
+            <option value="<?=$key?>" <?php if($language["active"]){ ?>selected<?php } ?>>
+            <?=$language["value"]?>
+            </option>
+            <?php } ?>
+        </select>
+
+        <input type="hidden" name="action" value="change_language">
+
+        <button><?=$data["lang"]["submit"]?></button>
+    </form>
 
 </body>
 </html>

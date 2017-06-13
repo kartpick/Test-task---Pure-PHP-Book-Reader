@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title><?=$data["book"]["title"]?> - <?=$data["book"]["author"]?></title>
 </head>
 <body>
     <h1><?=$data["book"]["title"]?></h1>
@@ -11,7 +11,7 @@
     <ul>
         <?php foreach($data["chapters"] as $chapter) {?>
             <li>
-                <a href="/detail/read/?id=<?=$data['book']['id']?>?chapter=<?=$chapter['id']?>">
+                <a href="/detail/read/?id=<?=$data['book']['id']?>&chapter=<?=$chapter['id']?>">
                     <?=$chapter['name']?>
                 </a>
             </li>

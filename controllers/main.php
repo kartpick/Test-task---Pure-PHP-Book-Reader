@@ -17,8 +17,7 @@ class Main extends Controller
   function index()
   {
     $model = new Book();
-    $this->data["books"] = $model->getAll();
-    print_r($this->data);
+    $this->data["books"] = $model->getAllByLang($_SESSION["lang"]);
 
     $this->view->generate('index', $this->data);
   }
