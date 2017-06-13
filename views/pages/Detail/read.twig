@@ -11,20 +11,20 @@
 
     {# Book`s page html text #}
     <div class="page-content" style="border: 1px solid black">
-        {{ page.data }}
+        {{ page.data | raw }}
     </div>
 
     {# Navigation #}
     <div class="navigation">
         {% if prev_page %}
-            <a href="/detail/read/?id={{ book.id }}&chapter={{ prev_page.chapter }}&page_number={{ prev_page.number }}"
+            <a href="/detail/read/?id={{ book.id }}&chapter={{ prev_page.chapter.id }}&page_number={{ prev_page.number }}"
                class="prev">
                 {{ lang.prev }}
             </a>
         {% endif %}
 
         {% if next_page %}
-            <a href="/detail/read/?id={{ book.id }}&chapter={{ next_page.chapter }}&page_number={{ next_page.number }}"
+            <a href="/detail/read/?id={{ book.id }}&chapter={{ next_page.chapter.id }}&page_number={{ next_page.number }}"
                class="next">
                 {{ lang.next }}
             </a>

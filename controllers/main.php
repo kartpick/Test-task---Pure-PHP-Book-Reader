@@ -1,24 +1,22 @@
 <?php namespace Controller;
 
 use System\Controller;
-use Models\Book;
 
 /**
  *
  */
-class Main extends Controller
-{
+class Main extends Controller {
 
-  function __construct()
-  {
-    parent::__construct();
-  }
+    function __construct()
+    {
+        parent::__construct();
+    }
 
-  function index()
-  {
-    $model = new Book();
-    $this->data["books"] = $model->getAllByLang($_SESSION["lang"]);
+    function index()
+    {
+        $bookRepository = $this->manager->getRepository('Models\Book');
+        $this->data["books"] = $bookRepository->findBy(["language" => $_SESSION["lang"]]);
 
-    $this->view->generate('index', $this->data);
-  }
+        $this->view->generate('index', $this->data);
+    }
 }

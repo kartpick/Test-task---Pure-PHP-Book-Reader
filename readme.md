@@ -9,8 +9,8 @@ This is a test task to show my qualifying skills as backend developer.<br/>
 
 # Installation
 
-1. Import `test_books.sql` db to your database.
-2. Set your db settings in `./system/db.php`.
+1. Set your db settings in `./system/db.php`.
+2. Run `vendor/bin/doctrine orm:schema-tool:create` to create scheme.
 3. Run `composer install` and `composer dump-autoload` in terminal.
 
 # Documentation

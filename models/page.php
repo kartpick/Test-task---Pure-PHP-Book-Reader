@@ -1,31 +1,102 @@
 <?php namespace Models;
 
-use System\Model;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
-class Page extends Model
-{
-  protected $tableName = "pages";
+/**
+ * @Entity
+ * @Table(name="pages")
+ **/
+class Page {
 
-  function getByPageNumber($chapter_id, $number)
-  {
-    $query = "SELECT * FROM " . $this->tableName . " WHERE chapter=? AND number=?";
-    $statement = $this->database->conn->prepare($query);
-    $statement->execute([$chapter_id, $number]);
+    /**
+     * @Id @Column(type="integer")
+     * @GeneratedValue
+     * @var int
+     **/
+    protected $id;
 
-    return $statement->fetch();
-  }
+    /**
+     * @Column(type="text")
+     * @var string
+     **/
+    protected $data;
 
-  function getChapterFirstPage($chapter_id) {
-    $query = "
-      SELECT number 
-      FROM " . $this->tableName . " 
-      WHERE chapter=? 
-      ORDER BY number
-      LIMIT 1";
-    $statement = $this->database->conn->prepare($query);
-    $statement->execute([$chapter_id]);
+    /**
+     * @Column(type="integer")
+     * @var int
+     **/
+    protected $number;
 
-    $data = $statement->fetch();
-    return $data["number"];
-  }
+    /**
+     * @ManyToOne(targetEntity="Chapter", inversedBy="pages")
+     * @var Chapter
+     **/
+    protected $chapter;
+
+    /**
+     * @OneToOne(targetEntity="Page")
+     * @var Page
+     **/
+    protected $previous = null;
+
+    /**
+     * @OneToOne(targetEntity="Page")
+     * @var Page
+     **/
+    protected $next = null;
+
+    public function __construct()
+    {
+        $this->chapters = new ArrayCollection();
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    }
+
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @param Chapter $chapter
+     */
+    public function setChapter($chapter)
+    {
+        $chapter->assignToPage($this);
+        $this->chapter = $chapter;
+    }
+
+    public function getChapter()
+    {
+        return $this->chapter;
+    }
+
+    public function getPrevious()
+    {
+        return $this->previous;
+    }
+
+    public function getNext()
+    {
+        return $this->next;
+    }
 }

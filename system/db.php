@@ -1,49 +1,45 @@
 <?php namespace System;
 
-use PDO;
-use PDOException;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
 
-class Db
-{
+class Db {
 
-  public $conn;
-  protected static $_instance;
+    public $conn;
 
-  protected $defaults = [
-    'host' => 'localhost',
-    'user' => 'root',
-    'pass' => '',
-    'db' => 'test_books',
-    'port' => null,
-    'socket' => null,
-    'charset' => 'utf8',
-  ];
+    public $manager;
 
-  private function __construct($settings = [])
-  {
-    $settings = array_merge($this->defaults, $settings);
+    protected static $_instance;
 
-    try {
-      $DBH = new PDO("mysql:host=" . $settings["host"] . ";dbname=" . $settings["db"].";charset=" . $settings["charset"],
-        $settings["user"],
-        $settings["pass"]);
+    protected $defaults = [
+        'user'     => 'root',
+        'password' => '',
+        'driver'   => 'pdo_mysql',
+        'dbname'   => 'test_books_orm',
+        'host'     => '127.0.0.1',
+        'charset'  => 'utf8',
+    ];
 
-      $this->conn = $DBH;
-    } catch (PDOException $e) {
-      echo "DB Error: " . $e->getMessage();
-      return;
+    private function __construct($settings = [], $isDevMode = true)
+    {
+        $settings = array_merge($this->defaults, $settings);
+
+        $paths = [__DIR__."/../models/"];
+        $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
+
+        $this->manager = EntityManager::create($settings, $config);
     }
-  }
 
-  public static function sharedInstance()
-  {
-    if (self::$_instance == null) {
-      self::$_instance = new self();
+    public static function sharedInstance()
+    {
+        if (self::$_instance == null) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
     }
-    return self::$_instance;
-  }
 
-  private function __clone()
-  {
-  }
+    private function __clone()
+    {
+    }
 }
